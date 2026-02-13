@@ -43,11 +43,13 @@ Generate konten carousel Instagram dengan:
 │   ├── 02_LUMAKARA_SERVICES.md
 │   └── ... (13 more files)
 │
-├── n8n/                     # n8n Automation
-│   ├── workflow.json       # Import-ready workflow
-│   ├── QUICK_START.md      # 10 min setup
-│   ├── IMPORT_GUIDE.md     # Detailed guide
-│   └── README.md           # n8n docs
+├── n8n/                     # n8n Gateway (NO AI API Required!)
+│   ├── workflow-simple-gateway.json  # Simple gateway (recommended)
+│   ├── workflow.json                 # Full automation (optional)
+│   ├── SIMPLE_GATEWAY_SETUP.md      # 5 min setup, no API key
+│   ├── QUICK_START.md               # Full automation guide
+│   ├── IMPORT_GUIDE.md              # Detailed guide
+│   └── README.md                    # n8n docs
 │
 ├── api/                     # Vercel API
 │   └── index.js            # Serverless function
@@ -65,20 +67,32 @@ Generate konten carousel Instagram dengan:
 
 ## 🎯 Choose Your Platform
 
-### 1. n8n (Automation) - 10 menit ⚡
-**Best for:** Automation, webhooks, integrations
+### 1. n8n Gateway (NO API Key!) - 5 menit ⚡
+**Best for:** Simple webhook, no AI API cost
 
 ```bash
-# Quick start
-1. Download: n8n/workflow.json
-2. Import ke n8n
-3. Add OpenAI API key
-4. Activate & test
+# Super simple
+1. Import: n8n/workflow-simple-gateway.json
+2. Activate
+3. Call webhook → Get formatted prompt
+4. Paste ke Custom GPT/Gemini
 ```
 
-[Quick Start Guide →](n8n/QUICK_START.md)
+[Simple Gateway Setup →](n8n/SIMPLE_GATEWAY_SETUP.md)
 
-### 2. Custom GPT (Manual) - 15 menit 🤖
+### 2. n8n Full Automation (Optional) - 10 menit 🤖
+**Best for:** Fully automated, needs OpenAI API
+
+```bash
+# Full automation
+1. Import: n8n/workflow.json
+2. Add OpenAI API key
+3. Call webhook → Auto-generate
+```
+
+[Full Automation Guide →](n8n/QUICK_START.md)
+
+### 3. Custom GPT (Manual) - 15 menit 🤖
 **Best for:** Manual content generation, team use
 
 ```bash
@@ -90,7 +104,7 @@ Generate konten carousel Instagram dengan:
 
 [Setup Guide →](docs/SETUP.md#custom-gpt)
 
-### 3. Gemini Gem (Alternative) - 15 menit 💎
+### 4. Gemini Gem (Alternative) - 15 menit 💎
 **Best for:** Google ecosystem, cost efficiency
 
 ```bash
