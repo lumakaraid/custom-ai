@@ -1,0 +1,49 @@
+{
+  "name": "Lumakara Content Gateway (No AI API Required)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lumakara-gateway",
+        "responseMode": "responseNode"
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract request data\nconst topic = $json.body.topic;\nconst audience = $json.body.audience || 'millennial';\nconst slideCount = $json.body.slideCount || 7;\nconst tone = $json.body.tone || 'casual';\n\n// Build prompt untuk Custom GPT/Gemini\nconst prompt = `Buatkan konten carousel Instagram tentang \"${topic}\" untuk target audience ${audience}, ${slideCount} slide, tone ${tone}.\\n\\nOutput dalam format PHP array sesuai knowledge base.`;\n\n// Knowledge base reference\nconst knowledgeBaseUrl = 'https://custom-ai-two.vercel.app/api/knowledge/all';\nconst githubUrl = 'https://github.com/lumakaraid/custom-ai/tree/main/knowledge-base';\n\nreturn {\n  json: {\n    prompt,\n    topic,\n    audience,\n    slideCount,\n    tone,\n    knowledgeBaseUrl,\n    githubUrl,\n    instructions: 'Copy prompt ini dan paste ke Custom GPT atau Gemini Gem untuk generate content',\n    note: 'n8n hanya sebagai gateway, tidak perlu OpenAI API key'\n  }\n};"
+      },
+      "id": "prepare",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}"
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Prepare Prompt", "type": "main", "index": 0}]]
+    },
+    "Prepare Prompt": {
+      "main": [[{"node": "Respond", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -22,9 +22,8 @@ build/
 .cache/
 temp/
 
-# Ignore optional folders (automation/API - not needed for basic use)
+# Ignore optional folders (can be ignored if not using automation/API)
 docs/
-n8n/
 api/
 package.json
 vercel.json
