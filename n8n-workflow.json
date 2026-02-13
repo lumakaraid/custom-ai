@@ -1,0 +1,88 @@
+{
+  "name": "Lumakara Content Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lumakara",
+        "responseMode": "responseNode"
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build prompt dengan knowledge base context\nconst topic = $json.body.topic;\nconst audience = $json.body.audience || 'millennial';\nconst slideCount = $json.body.slideCount || 7;\nconst tone = $json.body.tone || 'casual';\n\n// Knowledge base URLs di GitHub\nconst knowledgeBase = `\nKnowledge Base Reference:\n- Brand: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/01_LUMAKARA_BRAND_CHARACTER.md\n- Services: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/02_LUMAKARA_SERVICES.md\n- Topics: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/03_CONTENT_TOPICS_LIBRARY.md\n- Calendar: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/04_INDONESIAN_CALENDAR_2026.md\n- Strategy: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/05_CONTENT_STRATEGY.md\n- Target Gen Z: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/06_TARGET_AUDIENCE_GEN_Z.md\n- Target Millennial: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/07_TARGET_AUDIENCE_MILLENNIAL.md\n- Target Gen X: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/08_TARGET_AUDIENCE_GEN_X.md\n- Visual Guide: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/09_VISUAL_PROMPT_GUIDE.md\n- Voice Examples: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/10_BRAND_VOICE_EXAMPLES.md\n- Structure: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/11_CONTENT_STRUCTURE_GUIDE.md\n- Character Rules: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/12_CHARACTER_COUNT_RULES.md\n- PHP Format: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/13_PHP_OUTPUT_FORMAT.md\n- Import Guide: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/14_IMPORT_INSTRUCTIONS.md\n- Quality Checklist: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/15_QUALITY_CHECKLIST.md\n`;\n\nconst systemPrompt = `Kamu adalah Lumakara Content Creator AI.\n\nBaca dan ikuti semua guidelines dari knowledge base di GitHub (URLs di bawah).\n\n${knowledgeBase}\n\nGenerate konten carousel Instagram untuk Lumakara dalam format PHP array sesuai 13_PHP_OUTPUT_FORMAT.md.\n\nPastikan:\n- Brand voice konsisten (01_LUMAKARA_BRAND_CHARACTER.md)\n- Sesuai target audience\n- Character count rules (12_CHARACTER_COUNT_RULES.md)\n- Include visual prompts (09_VISUAL_PROMPT_GUIDE.md)\n- PHP syntax correct`;\n\nconst userPrompt = `Buatkan konten carousel Instagram tentang \"${topic}\" untuk target audience ${audience}, ${slideCount} slide.\n\nTone: ${tone}\n\nOutput dalam format PHP array yang bisa langsung di-import ke WordPress.`;\n\nreturn {\n  json: {\n    systemPrompt,\n    userPrompt,\n    topic,\n    audience,\n    slideCount,\n    tone\n  }\n};"
+      },
+      "id": "prepare",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4-turbo-preview\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": {{ $json.systemPrompt }}\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ $json.userPrompt }}\n    }\n  ],\n  \"temperature\": 0.7\n}",
+        "options": {}
+      },
+      "id": "openai",
+      "name": "OpenAI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "1",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract content\nconst content = $json.choices[0].message.content;\n\n// Generate filename\nconst date = new Date().toISOString().split('T')[0];\nconst topic = $('Prepare Prompt').item.json.topic.toLowerCase().replace(/\\s+/g, '-').replace(/[^a-z0-9-]/g, '');\nconst filename = `${date}-${topic}.php`;\n\nreturn {\n  json: {\n    success: true,\n    filename,\n    content,\n    topic: $('Prepare Prompt').item.json.topic,\n    audience: $('Prepare Prompt').item.json.audience,\n    slideCount: $('Prepare Prompt').item.json.slideCount,\n    generatedAt: new Date().toISOString()\n  }\n};"
+      },
+      "id": "process",
+      "name": "Process Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}"
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Prepare Prompt", "type": "main", "index": 0}]]
+    },
+    "Prepare Prompt": {
+      "main": [[{"node": "OpenAI", "type": "main", "index": 0}]]
+    },
+    "OpenAI": {
+      "main": [[{"node": "Process Response", "type": "main", "index": 0}]]
+    },
+    "Process Response": {
+      "main": [[{"node": "Respond", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,40 +1,64 @@
-# Lumakara Content AI Knowledge Base
+# Lumakara Content AI - Simple Setup
 
-Knowledge base untuk Lumakara content generation menggunakan AI (Custom GPT & Gemini Gem).
+Knowledge base untuk generate konten carousel Instagram Lumakara menggunakan AI.
 
-## 📁 Struktur
+## 📁 Structure
 
-- `knowledge-base/` - Semua file knowledge base terstruktur
-- `mcp-server/` - MCP server untuk Gemini integration
-- `n8n-workflows/` - Template workflow n8n
-- `api/` - REST API wrapper (optional)
-- `gemini-gem/` - Konfigurasi untuk Gemini Gem
-- `custom-gpt/` - Konfigurasi untuk Custom GPT
-
-## 🚀 Quick Start
-
-### 1. Setup Git
-```bash
-git init
-git add .
-git commit -m "Initial commit"
+```
+├── knowledge-base/          # 15 files knowledge base
+├── CUSTOM-GPT-CONFIG.md    # Instructions untuk Custom GPT & Gemini
+└── n8n-workflow.json       # n8n workflow (import ready)
 ```
 
-### 2. Deploy MCP Server
-```bash
-cd mcp-server
-npm install
-npm start
+## 🚀 Quick Setup
+
+### 1. Custom GPT (15 menit)
+1. Buka [ChatGPT GPT Builder](https://chat.openai.com/gpts/editor)
+2. Upload semua files dari `knowledge-base/`
+3. Copy-paste `CUSTOM-GPT-CONFIG.md` ke Instructions
+4. Test & publish
+
+### 2. Gemini Gem (15 menit)
+1. Buka [Google AI Studio](https://aistudio.google.com/)
+2. Create new Gem
+3. Copy-paste `CUSTOM-GPT-CONFIG.md` ke System Instructions
+4. Upload files dari `knowledge-base/` (atau reference GitHub URL)
+5. Test & share
+
+### 3. n8n Workflow (10 menit)
+1. Import `n8n-workflow.json` ke n8n
+2. Add OpenAI atau Gemini API credentials
+3. Activate workflow
+4. Test via webhook
+
+## 📝 Usage
+
+### Custom GPT / Gemini Gem
+```
+Buatkan konten carousel tentang "Double Cleansing" untuk Millennial, 7 slide
 ```
 
-### 3. Import n8n Workflow
-Import file dari `n8n-workflows/` ke n8n instance kamu
+### n8n Webhook
+```bash
+curl -X POST https://your-n8n.com/webhook/lumakara \
+  -H "Content-Type: application/json" \
+  -d '{
+    "topic": "Double Cleansing",
+    "audience": "millennial",
+    "slideCount": 7
+  }'
+```
 
-### 4. Setup Gemini Gem
-Follow instructions di `gemini-gem/SETUP.md`
+## 🎯 Output Format
 
-### 5. Setup Custom GPT
-Follow instructions di `custom-gpt/SETUP.md`
+PHP array siap import ke WordPress:
+```php
+$carousel_data = array(
+    'topic' => 'Double Cleansing',
+    'target_audience' => 'Millennial',
+    'slides' => array(...)
+);
+```
 
 ## 📚 Knowledge Base Files
 
@@ -52,13 +76,11 @@ Follow instructions di `custom-gpt/SETUP.md`
 12. Import Instructions
 13. Quality Checklist
 
-## 🔗 Integration
+## 🔗 Links
 
-- **Custom GPT**: Akses via OpenAI GPT Builder
-- **Gemini Gem**: Akses via Google AI Studio
-- **n8n**: Automation workflows
-- **MCP Server**: Real-time knowledge base access
+- GitHub: https://github.com/lumakaraid/custom-ai
+- Knowledge Base: https://raw.githubusercontent.com/lumakaraid/custom-ai/main/knowledge-base/
 
-## 📝 License
+## 📄 License
 
 Proprietary - Lumakara
