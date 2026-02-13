@@ -1,14 +1,36 @@
+# Dependencies
 node_modules/
 .env
 .env.local
+
+# Logs
 *.log
+
+# OS
 .DS_Store
-dist/
-build/
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+
+# Build
+dist/
+build/
 .cache/
 temp/
+
+# Ignore everything except knowledge base and core config
+/docs/
+/n8n/
+/api/
+package.json
+vercel.json
+
+# Keep only these
+!/knowledge-base/
+!/CUSTOM-GPT-CONFIG.md
+!/README.md
+!/.gitignore

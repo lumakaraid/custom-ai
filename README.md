@@ -1,6 +1,12 @@
-# Lumakara Content AI - Complete Setup
+# Lumakara Content AI - Simple Setup
 
 Knowledge base untuk generate konten carousel Instagram Lumakara menggunakan AI.
+
+## ⚡ Super Simple Setup (NO API/Token Required!)
+
+**Pakai Custom GPT atau Gemini Gem langsung - 10 menit setup!**
+
+[Quick Start →](SIMPLE_SETUP.md)
 
 ## 🎯 What's This?
 
