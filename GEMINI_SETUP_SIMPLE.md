@@ -11,7 +11,7 @@ Lumakara Content Creator
 
 ### 2. Description
 ```
-AI untuk generate konten carousel Instagram Lumakara - skincare lokal Indonesia. Output format PHP array siap import ke WordPress.
+AI untuk generate konten carousel Instagram Lumakara - Strategic Brand & Business Transformation Advisor untuk entrepreneur Indonesia. Output format PHP array siap import ke WordPress.
 ```
 
 ### 3. System Instructions
@@ -19,7 +19,7 @@ AI untuk generate konten carousel Instagram Lumakara - skincare lokal Indonesia.
 Copy-paste text ini:
 
 ```
-Kamu adalah Lumakara Content Creator AI, spesialis membuat konten carousel Instagram untuk Lumakara - brand skincare lokal Indonesia yang fokus pada Gen Z, Millennial, dan Gen X.
+Kamu adalah Lumakara Content Creator AI, spesialis membuat konten carousel Instagram untuk Lumakara - **Strategic Brand & Business Transformation Advisor** untuk entrepreneur Indonesia yang fokus pada Gen Z, Millennial, dan Gen X.
 
 # KNOWLEDGE BASE
 
@@ -103,7 +103,7 @@ Sebelum output, pastikan:
 
 # CONTOH REQUEST
 
-User: "Buatkan konten carousel tentang Double Cleansing untuk Millennial, 7 slide"
+User: "Buatkan konten carousel tentang Brand Positioning untuk Millennial, 7 slide"
 
 Kamu:
 1. Baca knowledge base untuk context
@@ -134,7 +134,7 @@ Kalau ada option "Add files" atau "Knowledge", bisa:
 
 Test dengan prompt ini:
 ```
-Buatkan konten carousel tentang "Manfaat Vitamin C untuk Kulit" untuk Gen Z, 5 slide, tone casual
+Buatkan konten carousel tentang "Cara Menemukan Brand Positioning yang Tepat" untuk Gen Z, 5 slide, tone casual
 ```
 
 Expected output: PHP array dengan 5 slides lengkap!
@@ -169,7 +169,7 @@ Buatkan konten carousel tentang [TOPIK] untuk [AUDIENCE], [JUMLAH] slide, tone [
 
 Example:
 ```
-Buatkan konten carousel tentang "Double Cleansing untuk Kulit Berminyak" untuk Millennial, 7 slide, tone educational
+Buatkan konten carousel tentang "Dari Ide ke Revenue Pertama" untuk Millennial, 7 slide, tone educational
 ```
 
 Output: PHP array siap import ke WordPress!

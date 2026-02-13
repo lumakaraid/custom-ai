@@ -1,6 +1,6 @@
 # Lumakara Content AI - Super Simple
 
-Knowledge base untuk generate konten carousel Instagram Lumakara menggunakan AI.
+Knowledge base untuk generate konten carousel Instagram Lumakara - **Strategic Brand & Business Transformation Advisor** untuk entrepreneur Indonesia - menggunakan AI.
 
 ## ⚡ Super Simple Setup
 
