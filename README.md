@@ -6,8 +6,15 @@ Knowledge base untuk generate konten carousel Instagram Lumakara menggunakan AI.
 
 ```
 ├── knowledge-base/          # 15 files knowledge base
+├── n8n/                     # n8n workflow
+│   ├── workflow.json       # Import ready workflow
+│   └── README.md           # n8n documentation
+├── docs/                    # Documentation & guides
+│   ├── SETUP.md            # Complete setup guide
+│   ├── DEPLOY_INSTRUCTIONS.md
+│   └── README.md
 ├── CUSTOM-GPT-CONFIG.md    # Instructions untuk Custom GPT & Gemini
-└── n8n-workflow.json       # n8n workflow (import ready)
+└── README.md               # This file
 ```
 
 ## 🚀 Quick Setup
@@ -26,10 +33,12 @@ Knowledge base untuk generate konten carousel Instagram Lumakara menggunakan AI.
 5. Test & share
 
 ### 3. n8n Workflow (10 menit)
-1. Import `n8n-workflow.json` ke n8n
+1. Import `n8n/workflow.json` ke n8n
 2. Add OpenAI atau Gemini API credentials
 3. Activate workflow
 4. Test via webhook
+
+See [n8n/README.md](n8n/README.md) for details.
 
 ## 📝 Usage
 
