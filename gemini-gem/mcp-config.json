@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "lumakara-knowledge": {
+      "command": "node",
+      "args": ["../mcp-server/index.js"],
+      "env": {
+        "KNOWLEDGE_BASE_PATH": "../knowledge-base"
+      }
+    }
+  }
+}
