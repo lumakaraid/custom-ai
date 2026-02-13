@@ -22,15 +22,9 @@ build/
 .cache/
 temp/
 
-# Ignore everything except knowledge base and core config
-/docs/
-/n8n/
-/api/
+# Ignore optional folders (automation/API - not needed for basic use)
+docs/
+n8n/
+api/
 package.json
 vercel.json
-
-# Keep only these
-!/knowledge-base/
-!/CUSTOM-GPT-CONFIG.md
-!/README.md
-!/.gitignore
